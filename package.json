@@ -1,0 +1,21 @@
+{
+  "name": "home-food-pre-order-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express backend for the HomeBite home food pre-order college project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

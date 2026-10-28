@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Home Food Pre-Order - order fresh homemade meals ahead of time.">
+  <title>HomeBite | Home Food Pre-Order</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a class="brand" href="#home" aria-label="HomeBite home">
+      <span class="brand-mark">🍱</span>
+      <span>Home<span>Bite</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#meals">Meals</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#orders">My Orders</a>
+    </div>
+    <button class="cart-button" id="cartButton">Cart <span id="cartCount">0</span></button>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">FRESH • HOMEMADE • PRE-ORDER</p>
+        <h1>Good food, made at home.<br><em>Ready when you are.</em></h1>
+        <p class="hero-text">Discover homemade meals from local home cooks and pre-order before the kitchen gets busy. Perfect for students who want comforting food without the wait.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#meals">Explore meals <span>→</span></a>
+          <a class="secondary-btn" href="#how-it-works">How it works</a>
+        </div>
+        <div class="trust-row">
+          <span>✓ Pre-order ahead</span>
+          <span>✓ Homemade taste</span>
+          <span>✓ Student-friendly</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="food-art" aria-label="Illustration of a homemade meal">
+          <div class="plate">
+            <div class="rice"></div><div class="curry"></div><div class="dal"></div><div class="salad"></div>
+          </div>
+          <span class="float-tag tag-one">🥗 Fresh today</span>
+          <span class="float-tag tag-two">❤️ Homemade</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="meals">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TODAY'S MENU</p>
+          <h2>Pick your comfort food</h2>
+        </div>
+        <button class="outline-btn" id="refreshMeals">↻ Refresh</button>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search meals..." autocomplete="off">
+        </label>
+        <div class="filters" id="categoryFilters">
+          <button class="filter active" data-category="all">All</button>
+          <button class="filter" data-category="veg">Veg</button>
+          <button class="filter" data-category="non-veg">Non-veg</button>
+          <button class="filter" data-category="snacks">Snacks</button>
+        </div>
+      </div>
+
+      <div id="mealsGrid" class="meal-grid" aria-live="polite"></div>
+      <div id="mealsEmpty" class="empty-state hidden">
+        <div>🍽️</div><h3>No meals found</h3><p>Try another search or category.</p>
+      </div>
+      <div id="mealsLoading" class="loading-state"><span class="spinner"></span> Loading today's meals...</div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="section-heading centered">
+        <div>
+          <p class="eyebrow">SIMPLE PROCESS</p>
+          <h2>Pre-order in three easy steps</h2>
+        </div>
+      </div>
+      <div class="steps">
+        <article class="step"><div class="step-icon">🔎</div><span>01</span><h3>Choose a meal</h3><p>Browse the available homemade dishes and select what sounds good.</p></article>
+        <article class="step"><div class="step-icon">🕐</div><span>02</span><h3>Pick your time</h3><p>Tell us when you plan to collect your order. Pre-ordering saves waiting time.</p></article>
+        <article class="step"><div class="step-icon">🥡</div><span>03</span><h3>Collect & enjoy</h3><p>Show your order ID to the home cook and enjoy a fresh homemade meal.</p></article>
+      </div>
+    </section>
+
+    <section class="section orders-section" id="orders">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ORDER HISTORY</p>
+          <h2>My recent orders</h2>
+        </div>
+        <button class="outline-btn" id="refreshOrders">↻ Refresh</button>
+      </div>
+      <div id="ordersList" class="orders-list"></div>
+      <div id="ordersEmpty" class="empty-state"><div>🧾</div><h3>No orders yet</h3><p>Your placed orders will appear here.</p></div>
+      <div id="ordersLoading" class="loading-state hidden"><span class="spinner"></span> Loading orders...</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">🍱 HomeBite</div>
+    <p>Homemade food. Planned around your day.</p>
+    <small>College project • Node.js + Express + Supabase</small>
+  </footer>
+
+  <div class="modal hidden" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="modal-card">
+      <button class="modal-close" data-close="cartModal" aria-label="Close">×</button>
+      <p class="eyebrow">YOUR CART</p>
+      <h2 id="cartTitle">Ready to pre-order?</h2>
+      <div id="cartItems"></div>
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+      <form id="orderForm">
+        <div class="form-grid">
+          <label>Name<input id="customerName" name="customerName" maxlength="80" required placeholder="Your name"></label>
+          <label>Phone<input id="customerPhone" name="customerPhone" maxlength="15" required placeholder="10-digit mobile number"></label>
+          <label>Pickup date<input id="pickupDate" name="pickupDate" type="date" required></label>
+          <label>Pickup time<input id="pickupTime" name="pickupTime" type="time" required></label>
+        </div>
+        <label>Notes (optional)<textarea id="orderNotes" maxlength="250" placeholder="Any simple note for the cook?"></textarea></label>
+        <button class="primary-btn full" id="placeOrderBtn" type="submit">Place pre-order</button>
+        <p id="orderMessage" class="form-message" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-card small">
+      <button class="modal-close" data-close="detailModal" aria-label="Close">×</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
